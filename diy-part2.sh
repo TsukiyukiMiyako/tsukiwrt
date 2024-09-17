@@ -17,7 +17,7 @@ sed -i 's/192.168.1.1/203.0.113.1/g' package/base-files/files/bin/config_generat
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 
 # Modify hostname
-sed -i 's/OpenWrt/Tsukiwrt/g' package/base-files/files/bin/config_generate
+sed -i "s/hostname='.*'/hostname='TsukiWrt'/g" package/base-files/files/bin/config_generate
 
 #修改版本号
 sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='Tsukiwrt-$(date +%Y%m%d)'/g"  package/base-files/files/etc/openwrt_release
