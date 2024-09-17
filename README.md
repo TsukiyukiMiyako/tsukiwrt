@@ -9,20 +9,25 @@ release下载固件刷入
 
 核心插件：rkp-ipid、ua2f、ipopt
 
-## ua2f设置
+基于[hanwckf ImmortalWrt](https://github.com/hanwckf/immortalwrt-mt798x.git)
+
+建议设置自动重启
+
+关闭硬件加速和流量分载，全锥型NAT，保证设置有效
+
+## ua2f设置（SSH连接路由器）
 
 ```
 # 启用 UA2F
 uci set ua2f.enabled.enabled=1
 
-# 可选的防火墙配置选项
 # 自动添加防火墙规则
 uci set ua2f.firewall.handle_fw=1
 
-# 是否尝试处理 443 端口的流量， 通常来说，流经 443 端口的流量是加密的，因此无需处理
+# 是否尝试处理 443 端口的流量， 通常来说，流经 443 端口的流量是加密的，因此无需输入这条命令
 # uci set ua2f.firewall.handle_tls=1
 
-# 是否处理微信的流量，微信的流量通常是加密的，因此无需处理。这一规则在启用 nftables 时无效
+# 是否处理微信的流量，微信的流量通常是加密的，因此无需输入这条命令。这一规则在启用 nftables 时无效
 # uci set ua2f.firewall.handle_mmtls=1
 
 # 是否处理内网流量，如果你的路由器是在内网中，且你想要处理内网中的流量，那么请启用这一选项
@@ -81,16 +86,8 @@ iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53
 iptables -t mangle -A ua2f -d 203.0.113.0/24 -j RETURN
 
 
-#以下自动处理了，不加入
-# iptables -t mangle -N ua2f
-# iptables -t mangle -A ua2f -d 127.0.0.0/8 -j RETURN
-#iptables -t mangle -A ua2f -p tcp --dport 443 -j RETURN
-#iptables -t mangle -A ua2f -p tcp --dport 22 -j RETURN # 不处理 SSH 和 https
-#iptables -t mangle -A ua2f -p tcp --dport 80 -j CONNMARK --set-mark 44
-#iptables -t mangle -A ua2f -m connmark --mark 43 -j RETURN # 不处理标记为非 http 的流 (实验性)
-#iptables -t mangle -A ua2f -m set --set nohttp dst,dst -j RETURN
-#iptables -t mangle -A ua2f -p tcp --dport 80 -m string --string "/mmtls/" --algo bm -j RETURN # 不处理微信的 mmtls
-#iptables -t mangle -A ua2f -j NFQUEUE --queue-num 10010
-#iptables -t mangle -A FORWARD -p tcp -m conntrack --ctdir ORIGINAL -j ua2f
-
+```
+## 自动重启设置（计划任务）
+```
+10 5 * * 3 sleep 5 && touch /etc/banner && reboot //每周三5点10分重启
 ```
