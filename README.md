@@ -1,4 +1,5 @@
 # rax3000m nand版本openwrt校园网防检测固件
+
 release下载固件刷入
 
 默认ip：203.0.113.1
@@ -53,6 +54,7 @@ logread | grep UA2F
 ```
 
 ## iptables设置
+
 ```
 #修改ttl
 iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
@@ -78,16 +80,6 @@ iptables -t mangle -A IPID_MOD -j MARK --set-xmark 0x10/0x10
 # iptables 拒绝 AC 进行 Flash 检测
 iptables -I FORWARD -p tcp --sport 80 --tcp-flags ACK ACK -m string --algo bm --string " src=\"http://1.1.1." -j DROP
 
-#劫持dns
-iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53
-iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53
-
 #ua2f
 iptables -t mangle -A ua2f -d 203.0.113.0/24 -j RETURN
-
-
-```
-## 自动重启设置（计划任务）
-```
-10 5 * * 3 sleep 5 && touch /etc/banner && reboot //每周三5点10分重启
 ```

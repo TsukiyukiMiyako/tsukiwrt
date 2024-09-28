@@ -16,6 +16,6 @@
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-#luci-app-dockerman up
-git clone https://github.com/Zxilly/UA2F.git package/UA2F
-git clone https://github.com/CHN-beta/rkp-ipid.git package/rkp-ipid
+
+
+echo -e "\nsrc-git custompkg https://github.com/kiddin9/openwrt-packages.git" >> feeds.conf.default
