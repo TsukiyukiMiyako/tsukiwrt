@@ -35,7 +35,7 @@ uci set ua2f.firewall.handle_fw=1
 uci set ua2f.firewall.handle_intranet=1
 
 # 使用自定义 User-Agent
-uci set ua2f.main.custom_ua="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0"
+uci set ua2f.main.custom_ua="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
 
 # 禁用 Conntrack 标记，这会降低性能，但是有助于和其他修改 Connmark 的软件共存
 uci set ua2f.main.disable_connmark=1
@@ -83,3 +83,4 @@ iptables -I FORWARD -p tcp --sport 80 --tcp-flags ACK ACK -m string --algo bm --
 #ua2f
 iptables -t mangle -A ua2f -d 203.0.113.0/24 -j RETURN
 ```
+
