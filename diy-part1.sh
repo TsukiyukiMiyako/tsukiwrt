@@ -18,7 +18,7 @@
 
 git clone https://github.com/CHN-beta/rkp-ipid.git package/rkp-ipid
 git clone https://github.com/lucikap/luci-app-ua2f.git  package/luci-app-ua2f
-echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-echo 'src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages' >>feeds.conf.default
+echo -e '\nsrc-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+echo -e '\nsrc-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages' >>feeds.conf.default
 
 echo -e "\nsrc-git mzwrt_package https://github.com/mzwrt/mzwrt_package_Lite.git" >> feeds.conf.default
